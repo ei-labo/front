@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Markdown from "../components/Markdown";
 import privacy from "../md/privacy.md"
 import Typography from '@material-ui/core/Typography';

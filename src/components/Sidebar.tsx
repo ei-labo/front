@@ -75,12 +75,10 @@ export default function Sidebar(props: Props) {
             <ListItemIcon><HomeIcon /></ListItemIcon>
             <ListItemText primary="Top" />
           </ListItem>
-          {/*
           <ListItem button disabled>
             <ListItemIcon><DashboardIcon /></ListItemIcon>
             <ListItemText primary="Dashboard" />
           </ListItem>
-          */}
         </List>
         <Divider />
         <List subheader={<ListSubheader>Experimental Features</ListSubheader>}>
