@@ -10,7 +10,9 @@ import {getLightTheme, getDarkTheme} from './themes';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
+
 import Settings from './pages/Settings';
+import Home from './pages/Home';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,9 +41,7 @@ function AppRoutes(props: { profileManager: ProfileManager }) {
       <Settings profileManager={props.profileManager} />
     </Route>
     <Route path="/">
-      <div>
-        placeholder
-      </div>
+      <Home />
     </Route>
   </Switch>)
 }

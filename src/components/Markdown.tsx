@@ -8,6 +8,9 @@ const useStyles = makeStyles((theme) => ({
   listItem: {
     marginTop: theme.spacing(1),
   },
+  image: {
+    maxWidth: '100%',
+  },
 }));
 
 function MarkdownListItem(props: any) {
@@ -16,6 +19,17 @@ function MarkdownListItem(props: any) {
     <li className={classes.listItem}>
       <Typography component="span" {...props} />
     </li>
+  );
+}
+
+function MarkdownImage(props: any) {
+  const classes = useStyles();
+  return (
+    <img
+      className={classes.image}
+      src={props.src}
+      title={props.title}
+      alt={props.alt} />
   );
 }
 
@@ -51,6 +65,9 @@ const options = {
     a: { component: Link },
     li: {
       component: MarkdownListItem,
+    },
+    img: {
+      component: MarkdownImage,
     },
   },
 };

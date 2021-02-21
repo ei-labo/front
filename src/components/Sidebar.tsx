@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -8,6 +8,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Link from '@material-ui/core/Link';
+import { Link as RouterLink, LinkProps as RouterLinkProps  } from 'react-router-dom';
 
 import BuildIcon from '@material-ui/icons/Build';
 import HomeIcon from '@material-ui/icons/Home';
@@ -41,6 +42,34 @@ export interface Props {
     setSidebarOpened: (sidebarOpened: boolean) => void,
 }
 
+interface ListItemLinkProps {
+  icon?: React.ReactElement;
+  primary: string;
+  to: string;
+  disabled?: boolean;
+}
+
+function ListItemLink(props: ListItemLinkProps) {
+  const { icon, primary, to, disabled } = props;
+
+  const renderLink = useMemo(
+    () =>
+      React.forwardRef<any, Omit<RouterLinkProps, 'to'>>((itemProps, ref) => (
+        <RouterLink to={to} ref={ref} {...itemProps} />
+      )),
+    [to],
+  );
+
+  return (
+    <li>
+      <ListItem button component={renderLink} disabled={disabled}>
+        {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+        <ListItemText primary={primary} />
+      </ListItem>
+    </li>
+  );
+}
+
 export default function Sidebar(props: Props) {
   const classes = useStyles();
 
@@ -64,35 +93,24 @@ export default function Sidebar(props: Props) {
       onKeyDown={closeDrawer}
       >
         <div className={classes.toolbar}>
-          <Link className={classes.title} href="/" variant="h6" color="inherit">
+          <Link component={RouterLink} to="/" 
+            className={classes.title} variant="h6" color="inherit">
             Egg, Inc. Laboratory
           </Link>
           {process.env.REACT_APP_VERSION ? `v${process.env.REACT_APP_VERSION}`: null}
         </div>
         <Divider />
         <List>
-          <ListItem button>
-            <ListItemIcon><HomeIcon /></ListItemIcon>
-            <ListItemText primary="Top" />
-          </ListItem>
-          <ListItem button disabled>
-            <ListItemIcon><DashboardIcon /></ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItem>
+          <ListItemLink to="/" primary="Home" icon={<HomeIcon />} />
+          <ListItemLink disabled to="/" primary="Dashboard" icon={<DashboardIcon />} />
         </List>
         <Divider />
         <List subheader={<ListSubheader>Experimental Features</ListSubheader>}>
-          <ListItem button>
-            <ListItemIcon><ExploreIcon /></ListItemIcon>
-            <ListItemText primary="Mission Data Collection" />
-          </ListItem>
+          <ListItemLink disabled to="/" primary="Mission Data Collection" icon={<ExploreIcon />} />
         </List>
         <Divider />
         <List>
-          <ListItem button>
-            <ListItemIcon><BuildIcon /></ListItemIcon>
-            <ListItemText primary="Settings" />
-          </ListItem>
+          <ListItemLink to="/settings" primary="Settings" icon={<BuildIcon />} />
         </List>
       </div>
     </Drawer>
