@@ -9,4 +9,8 @@ and we do not take any responsibility or liability for any damage or loss caused
 
 ## Getting started
 
-At this moment we only provide limited features publicly, however, you can see what's here by seeing the menu. You can save your ID in the settings page to enable some personalized features.
+At this moment we only provide few features publicly, however, you can see what's here in the menu. You can save your ID in the settings page to enable some personalized features.
+
+## Contact
+
+If you find an issue with this app, report it to `mikit#7826` on discord or post it [here](https://github.com/ei-labo/front/issues).

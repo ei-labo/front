@@ -13,6 +13,7 @@ import Footer from './components/Footer';
 
 import Settings from './pages/Settings';
 import Home from './pages/Home';
+import UpdateLog from './pages/UpdateLog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +40,9 @@ function AppRoutes(props: { profileManager: ProfileManager }) {
   return (<Switch>
     <Route path="/settings">
       <Settings profileManager={props.profileManager} />
+    </Route>
+    <Route path="/update_log">
+      <UpdateLog />
     </Route>
     <Route path="/">
       <Home />
@@ -69,7 +73,7 @@ function App() {
                 setDarkThemeEnabled={setDarkThemeEnabled}
                 setSidebarOpened={setSidebarOpened} />
               <Sidebar sidebarOpened={sidebarOpened} setSidebarOpened={setSidebarOpened} />
-              <Container component="main" className={classes.main}>
+              <Container component="main" maxWidth="md" className={classes.main}>
                 <AppRoutes profileManager={profileManager} />
               </Container>
               <Footer />

@@ -8,6 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Tooltip from '@material-ui/core/Tooltip';
+import { Link as RouterLink  } from 'react-router-dom';
 
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh';
@@ -72,7 +73,8 @@ export default function Navbar(props: Props) {
         </Select>
       </FormControl>
       <Tooltip title="Settings">
-        <IconButton color="inherit" aria-label="settings">
+        <IconButton component={RouterLink} to="/settings"
+          color="inherit" aria-label="settings">
           <BuildIcon />
         </IconButton>
       </Tooltip>
