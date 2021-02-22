@@ -68,7 +68,7 @@ export default function Navbar(props: Props) {
           onChange={event => switchProfile(event.target.value as string)}
         >
           {props.profileManager.profiles.map(profile => 
-            <MenuItem key={profile.backup.id} value={profile.backup.id}>{profile.backup.name}</MenuItem>
+            <MenuItem key={profile.backup.id} value={profile.backup.id}>{profile.backup.name || profile.backup.id}</MenuItem>
           )}
         </Select>
       </FormControl>
