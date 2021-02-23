@@ -1,8 +1,10 @@
-const rawLoader = require('craco-raw-loader')
+const rawLoader = require('craco-raw-loader');
 
 module.exports = {
-  plugins: [{ 
-    plugin: rawLoader,
-    options: { test: /\.md$/ }
-  }]
-}
+  plugins: [
+    {
+      plugin: rawLoader,
+      options: {test: /\.md$/},
+    },
+  ],
+};

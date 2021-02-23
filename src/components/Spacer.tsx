@@ -23,4 +23,4 @@ export default function Spacer(props: Props) {
       {...props.delegated}
     />
   );
-};
+}

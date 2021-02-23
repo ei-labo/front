@@ -1,10 +1,10 @@
 import * as React from 'react';
 import ReactMarkdown from 'markdown-to-jsx';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   listItem: {
     marginTop: theme.spacing(1),
   },
@@ -29,7 +29,8 @@ function MarkdownImage(props: any) {
       className={classes.image}
       src={props.src}
       title={props.title}
-      alt={props.alt} />
+      alt={props.alt}
+    />
   );
 }
 
@@ -44,11 +45,11 @@ const options = {
     },
     h2: {
       component: Typography,
-      props: { gutterBottom: true, variant: 'h6' },
+      props: {gutterBottom: true, variant: 'h6'},
     },
     h3: {
       component: Typography,
-      props: { gutterBottom: true, variant: 'subtitle1' },
+      props: {gutterBottom: true, variant: 'subtitle1'},
     },
     h4: {
       component: Typography,
@@ -60,9 +61,9 @@ const options = {
     },
     p: {
       component: Typography,
-      props: { paragraph: true },
+      props: {paragraph: true},
     },
-    a: { component: Link },
+    a: {component: Link},
     li: {
       component: MarkdownListItem,
     },
@@ -72,6 +73,6 @@ const options = {
   },
 };
 
-export default function Markdown(props: any) {
+export default function Markdown(props: ReactMarkdown.Props) {
   return <ReactMarkdown options={options} {...props} />;
 }
