@@ -1,13 +1,24 @@
 import {ReactChildren, ReactChild} from 'react';
-import {useTheme} from '@material-ui/styles';
-import {Backup} from '../AppContext';
+import {getCurrentRole} from '../game/roles';
+import {makeStyles} from '@material-ui/core/styles';
+
+interface StyleProp {
+  color: string;
+}
+
+const useStyles = makeStyles({
+  text: {
+    color: (props: StyleProp) => props.color,
+  },
+});
 
 export interface Props {
-  backup: Backup;
+  eb: number;
   children: ReactChild | ReactChildren;
 }
 
 export default function RoleTheme(props: Props) {
-  const {backup} = props;
-  const theme = useTheme();
+  const {eb, children} = props;
+  const classes = useStyles({color: getCurrentRole(eb).color});
+  return <span className={classes.text}>{children}</span>;
 }

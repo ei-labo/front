@@ -141,10 +141,10 @@ export default function Sidebar(props: Props) {
         <List>
           <ListItemLink to="/" primary="Home" icon={<HomeIcon />} />
           <ListItemLink
-            disabled
-            to="/"
+            to="/dashboard"
             primary="Dashboard"
             icon={<DashboardIcon />}
+            disabled
           />
         </List>
         <Divider />

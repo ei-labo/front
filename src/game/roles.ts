@@ -1,4 +1,5 @@
 import roles from '../assets/data/roles.json';
+import clamp from 'lodash/clamp';
 
 export interface Role {
   name: string;
@@ -9,6 +10,6 @@ export interface Role {
 }
 
 export function getCurrentRole(eb: number): Role {
-  const index = Math.min(Math.floor(Math.log10(eb)), roles.length - 1);
+  const index = clamp(Math.floor(Math.log10(eb)), 0, roles.length - 1);
   return roles[index];
 }

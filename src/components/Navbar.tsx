@@ -71,6 +71,7 @@ export default function Navbar(props: Props) {
             value={props.profileManager.profile.backup.id}
             inputProps={{'aria-label': 'Without label'}}
             onChange={event => switchProfile(event.target.value as string)}
+            disabled={props.profileManager.profiles.length === 1}
           >
             {props.profileManager.profiles.map(profile => (
               <MenuItem key={profile.backup.id} value={profile.backup.id}>

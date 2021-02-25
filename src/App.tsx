@@ -1,4 +1,4 @@
-import React, {useState, StrictMode} from 'react';
+import React, {useState, StrictMode, useMemo} from 'react';
 import createPersistedState from 'use-persisted-state';
 import {SnackbarProvider} from 'notistack';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
@@ -9,6 +9,7 @@ import AppContext, {
   Profile,
   defaultProfile,
   ProfileManager,
+  AppContextValue,
 } from './AppContext';
 import {getLightTheme, getDarkTheme} from './themes';
 import Navbar from './components/Navbar';
@@ -18,6 +19,7 @@ import Footer from './components/Footer';
 import Settings from './pages/Settings';
 import Home from './pages/Home';
 import UpdateLog from './pages/UpdateLog';
+import Dashboard from './pages/Dashboard';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,6 +45,9 @@ const useProfilesState = createPersistedState('profiles');
 function AppRoutes(props: {profileManager: ProfileManager}) {
   return (
     <Switch>
+      <Route path="/dashboard">
+        <Dashboard />
+      </Route>
       <Route path="/settings">
         <Settings profileManager={props.profileManager} />
       </Route>
@@ -68,6 +73,7 @@ function App() {
     profiles,
     setProfiles,
   };
+  const context = useMemo(() => new AppContextValue(profile), [profile]);
 
   return (
     <div className={classes.root}>
@@ -78,7 +84,7 @@ function App() {
           <SnackbarProvider maxSnack={3}>
             <BrowserRouter>
               <CssBaseline />
-              <AppContext.Provider value={profile}>
+              <AppContext.Provider value={context}>
                 <Navbar
                   profileManager={profileManager}
                   darkThemeEnabled={darkThemeEnabled}
