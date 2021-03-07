@@ -19,6 +19,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import UnarchiveIcon from '@material-ui/icons/Unarchive';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import GitHubIcon from '@material-ui/icons/GitHub';
+import CodeIcon from '@material-ui/icons/Code';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -166,6 +167,11 @@ export default function Sidebar(props: Props) {
             to="/update_log"
             primary="Update Log"
             icon={<ListAltIcon />}
+          />
+          <ListItemExternalLink
+            to="https://api.ei.mikit.app/"
+            primary="API"
+            icon={<CodeIcon />}
           />
           <ListItemExternalLink
             to="https://github.com/ei-labo/front/issues"
