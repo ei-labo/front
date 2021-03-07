@@ -16,7 +16,7 @@ import {
 import BuildIcon from '@material-ui/icons/Build';
 import HomeIcon from '@material-ui/icons/Home';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import ExploreIcon from '@material-ui/icons/Explore';
+import UnarchiveIcon from '@material-ui/icons/Unarchive';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import GitHubIcon from '@material-ui/icons/GitHub';
 
@@ -150,10 +150,9 @@ export default function Sidebar(props: Props) {
         <Divider />
         <List subheader={<ListSubheader>Experimental Features</ListSubheader>}>
           <ListItemLink
-            disabled
-            to="/"
-            primary="Mission Data Collection"
-            icon={<ExploreIcon />}
+            to="/conribute_data"
+            primary="Data Contribution"
+            icon={<UnarchiveIcon />}
           />
         </List>
         <Divider />

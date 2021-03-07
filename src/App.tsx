@@ -20,6 +20,7 @@ import Settings from './pages/Settings';
 import Home from './pages/Home';
 import UpdateLog from './pages/UpdateLog';
 import Dashboard from './pages/Dashboard';
+import DataContribution from './pages/DataContribution';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -53,6 +54,9 @@ function AppRoutes(props: {profileManager: ProfileManager}) {
       </Route>
       <Route path="/update_log">
         <UpdateLog />
+      </Route>
+      <Route path="/conribute_data">
+        <DataContribution />
       </Route>
       <Route path="/">
         <Home />
