@@ -12,6 +12,7 @@ export function useAPI(snackbar = true) {
         //console.log(resp);
         const data = JSON.parse(resp);
         if (200 <= data.status && data.status < 300) {
+          if (data.data === null) return null;
           const gzipData = base64.toByteArray(data.data);
           return JSON.parse(pako.inflate(gzipData, {to: 'string'}));
         }
