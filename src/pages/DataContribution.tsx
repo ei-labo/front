@@ -135,7 +135,7 @@ export default function DataContribution() {
             </StepContent>
           </Step>
           <Step>
-            <StepLabel>Choose Credit Preference</StepLabel>
+            <StepLabel>Choose Privacy Preference</StepLabel>
             <StepContent>
               <Typography>
                 We never store your ID in our server, however, you have an
