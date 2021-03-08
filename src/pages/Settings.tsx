@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {makeStyles} from '@material-ui/core/styles';
 import Markdown from '../components/Markdown';
 import privacy from '../md/privacy.md';
 import Typography from '@material-ui/core/Typography';
@@ -10,10 +11,22 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import {Backup, Profile, ProfileManager} from '../AppContext';
+import DeleteIcon from '@material-ui/icons/Delete';
+import {Profile, ProfileManager} from '../AppContext';
 import {useAPI} from '../api';
 import {useSnackbar} from 'notistack';
 import Spacer from '../components/Spacer';
+
+const useStyles = makeStyles(theme => ({
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  button: {
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(1),
+  },
+}));
 
 export interface Props {
   profileManager: ProfileManager;
@@ -24,6 +37,7 @@ export default function Settings({profileManager}: Props) {
   const api = useAPI();
   const {enqueueSnackbar} = useSnackbar();
   const [addingNewUser, setAddingNewUser] = useState(false);
+  const classes = useStyles();
 
   const onSubmitNewID = async () => {
     const eiID = `EI${newID}`;
@@ -35,13 +49,8 @@ export default function Settings({profileManager}: Props) {
     }
     try {
       setAddingNewUser(true);
-      const resp = await api.post<Backup>('/users/', {
-        id: eiID,
-      });
-      const profile: Profile = {
-        backup: resp.data,
-        public: false,
-      };
+      const resp = await api.post('/users/', {id: eiID});
+      const profile: Profile = {backup: resp.data};
       profileManager.setProfiles(profileManager.profiles.concat(profile));
       profileManager.setProfile(profile);
       setNewID('');
@@ -51,16 +60,87 @@ export default function Settings({profileManager}: Props) {
       setAddingNewUser(false);
     }
   };
+  const deleteAccount = (id: string) => {
+    profileManager.setProfiles(
+      profileManager.profiles.filter(profile => profile.backup.id !== id)
+    );
+  };
+  const selectAccount = (id: string) => {
+    profileManager.setProfile(
+      profileManager.profiles.find(profile => profile.backup.id === id)
+    );
+  };
 
   return (
     <div>
       <Typography variant="h4" gutterBottom>
-        {' '}
-        Settings{' '}
+        Settings
       </Typography>
       <Typography variant="h5" gutterBottom>
-        {' '}
-        Accounts{' '}
+        Accounts
+      </Typography>
+      {profileManager.profiles
+        .filter(profile => profile.backup.id !== '')
+        .map(profile => (
+          <React.Fragment key={profile.backup.id}>
+            <Typography variant="h6" gutterBottom>
+              {profile.backup.name || profile.backup.id}
+            </Typography>
+            <Grid container>
+              <Grid item xs={3}>
+                <Typography gutterBottom>ID</Typography>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography gutterBottom>{profile.backup.id}</Typography>
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid item xs={3}>
+                <Typography gutterBottom>PE</Typography>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography gutterBottom>{profile.backup.pe}</Typography>
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid item xs={3}>
+                <Typography gutterBottom>Contracts</Typography>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography gutterBottom>
+                  {profile.backup.contract_archive.length}
+                </Typography>
+              </Grid>
+            </Grid>
+            <div className={classes.buttons}>
+              <Button
+                disabled={
+                  profile.backup.id === profileManager.profile.backup.id
+                }
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                onClick={() => selectAccount(profile.backup.id)}
+              >
+                Select
+              </Button>
+              <Button
+                disabled={
+                  profile.backup.id === profileManager.profile.backup.id
+                }
+                variant="contained"
+                color="secondary"
+                className={classes.button}
+                startIcon={<DeleteIcon />}
+                onClick={() => deleteAccount(profile.backup.id)}
+              >
+                Delete
+              </Button>
+            </div>
+          </React.Fragment>
+        ))}
+      <Typography variant="h6" gutterBottom>
+        New account
       </Typography>
       <FormControl fullWidth>
         <Grid container spacing={3} justify="flex-start" alignItems="flex-end">
@@ -71,7 +151,7 @@ export default function Settings({profileManager}: Props) {
               value={newID}
               onChange={event =>
                 setNewID(
-                  event.target.value.replaceAll(/[^0-9]/g, '').substr(0, 16)
+                  event.target.value.replace(/[^0-9]/g, '').substr(0, 16)
                 )
               }
               id="standard-adornment-weight"
