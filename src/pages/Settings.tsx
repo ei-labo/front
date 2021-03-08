@@ -65,10 +65,14 @@ export default function Settings({profileManager}: Props) {
       profileManager.profiles.filter(profile => profile.backup.id !== id)
     );
   };
-  const selectAccount = (id: string) => {
-    profileManager.setProfile(
-      profileManager.profiles.find(profile => profile.backup.id === id)
-    );
+  const toggleAccount = (id: string) => {
+    if (profileManager.profile.backup.id === id) {
+      profileManager.setProfile(profileManager.profiles[0]);
+    } else {
+      profileManager.setProfile(
+        profileManager.profiles.find(profile => profile.backup.id === id)
+      );
+    }
   };
 
   return (
@@ -114,15 +118,14 @@ export default function Settings({profileManager}: Props) {
             </Grid>
             <div className={classes.buttons}>
               <Button
-                disabled={
-                  profile.backup.id === profileManager.profile.backup.id
-                }
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => selectAccount(profile.backup.id)}
+                onClick={() => toggleAccount(profile.backup.id)}
               >
-                Select
+                {profile.backup.id === profileManager.profile.backup.id
+                  ? 'Deselect'
+                  : 'Select'}
               </Button>
               <Button
                 disabled={
