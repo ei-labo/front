@@ -1,4 +1,5 @@
 import React, {useMemo} from 'react';
+import preval from 'preval.macro';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -21,6 +22,7 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import CodeIcon from '@material-ui/icons/Code';
 
+const buildDate = preval`d=new Date();module.exports=d.getUTCFullYear().toString().substr(2)+(d.getUTCMonth()+1).toString().padStart(2,"0")+d.getUTCDate().toString().padStart(2,"0")+d.getUTCHours().toString().padStart(2,"0")`;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     list: {
@@ -134,9 +136,12 @@ export default function Sidebar(props: Props) {
           >
             Egg, Inc. Laboratory
           </Link>
-          {process.env.REACT_APP_VERSION
-            ? `v${process.env.REACT_APP_VERSION}`
-            : null}
+          <div>
+            {process.env.REACT_APP_VERSION
+              ? `v${process.env.REACT_APP_VERSION}-`
+              : null}
+            {buildDate}
+          </div>
         </div>
         <Divider />
         <List>
