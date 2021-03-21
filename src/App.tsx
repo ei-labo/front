@@ -1,7 +1,7 @@
 import React, {useState, StrictMode, useMemo} from 'react';
 import createPersistedState from 'use-persisted-state';
 import {SnackbarProvider} from 'notistack';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 import {ThemeProvider, makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
@@ -56,6 +56,9 @@ function AppRoutes(props: {profileManager: ProfileManager}) {
         <UpdateLog />
       </Route>
       <Route path="/conribute_data">
+        <Redirect to="/contribute_data" />
+      </Route>
+      <Route path="/contribute_data">
         <DataContribution />
       </Route>
       <Route path="/">
