@@ -156,7 +156,7 @@ export default function Sidebar(props: Props) {
         <Divider />
         <List subheader={<ListSubheader>Experimental Features</ListSubheader>}>
           <ListItemLink
-            to="/conribute_data"
+            to="/contribute_data"
             primary="Data Contribution"
             icon={<UnarchiveIcon />}
           />
