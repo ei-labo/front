@@ -110,110 +110,116 @@ export default function DataContribution() {
     <>
       <Markdown>{dataContributionMD}</Markdown>
       <Paper>
-        <Stepper orientation="vertical" activeStep={activeStep}>
-          <Step>
-            <StepLabel>Select Account</StepLabel>
-            <StepContent>
-              <Typography>
-                First, you need to submit your ID from the setting screen and
-                switch to your account.
-              </Typography>
-              <div>
-                <Button disabled className={classes.button}>
-                  Back
-                </Button>
-                <Button
-                  className={classes.button}
-                  variant="contained"
-                  color="secondary"
-                  component={RouterLink}
-                  to="/settings"
-                >
-                  Open Settings
-                </Button>
-              </div>
-            </StepContent>
-          </Step>
-          <Step>
-            <StepLabel>Choose Privacy Preference</StepLabel>
-            <StepContent>
-              <Typography>
-                We never store your ID in our server, however, you have an
-                option to make your data credited. If you enable this option,
-                data is tied with your user name "{game.name}" and a unique
-                identifier generated from your ID. In the future, this option
-                will be required if you use planned features such as past
-                mission rewards statistics. You can stay anonymous if not
-                interested. You cannot change this option after submission.
-              </Typography>
-              <FormControl required component="fieldset">
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={!anonymous}
-                        onChange={() => setAnonymous(!anonymous)}
-                        name="credit me"
+        This form is under maintainance.
+        {false && (
+          <>
+            <Stepper orientation="vertical" activeStep={activeStep}>
+              <Step>
+                <StepLabel>Select Account</StepLabel>
+                <StepContent>
+                  <Typography>
+                    First, you need to submit your ID from the setting screen
+                    and switch to your account.
+                  </Typography>
+                  <div>
+                    <Button disabled className={classes.button}>
+                      Back
+                    </Button>
+                    <Button
+                      className={classes.button}
+                      variant="contained"
+                      color="secondary"
+                      component={RouterLink}
+                      to="/settings"
+                    >
+                      Open Settings
+                    </Button>
+                  </div>
+                </StepContent>
+              </Step>
+              <Step>
+                <StepLabel>Choose Privacy Preference</StepLabel>
+                <StepContent>
+                  <Typography>
+                    We never store your ID in our server, however, you have an
+                    option to make your data credited. If you enable this
+                    option, data is tied with your user name "{game.name}" and a
+                    unique identifier generated from your ID. In the future,
+                    this option will be required if you use planned features
+                    such as past mission rewards statistics. You can stay
+                    anonymous if not interested. You cannot change this option
+                    after submission.
+                  </Typography>
+                  <FormControl required component="fieldset">
+                    <FormGroup>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={!anonymous}
+                            onChange={() => setAnonymous(!anonymous)}
+                            name="credit me"
+                          />
+                        }
+                        label="Enable Personalization"
                       />
-                    }
-                    label="Enable Personalization"
-                  />
-                </FormGroup>
-              </FormControl>
-              <div>
-                <Button className={classes.button} disabled>
-                  Back
-                </Button>
-                <Button
-                  className={classes.button}
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => setActiveStep(2)}
-                >
-                  Next
-                </Button>
-              </div>
-            </StepContent>
-          </Step>
-          <Step>
-            <StepLabel>Upload</StepLabel>
-            <StepContent>
-              <Typography>
-                The following information will be saved, are you sure you want
-                to continue?
-              </Typography>
-              <ul>
-                {sharedItems
-                  .filter(item => keys.includes(item.key))
-                  .map(item => (
-                    <li key={item.name}>{item.name}</li>
-                  ))}
-              </ul>
-              <div>
-                <Button
-                  className={classes.button}
-                  onClick={() => setActiveStep(1)}
-                >
-                  Back
-                </Button>
-                <Button
-                  className={classes.button}
-                  variant="contained"
-                  color="secondary"
-                  onClick={submit}
-                  endIcon={<SendIcon />}
-                  disabled={loading}
-                >
-                  Upload
-                </Button>
-              </div>
-            </StepContent>
-          </Step>
-        </Stepper>
-        {activeStep === 3 && (
-          <Paper square elevation={0} className={classes.resetContainer}>
-            <Markdown>{dataContributionThanksMD}</Markdown>
-          </Paper>
+                    </FormGroup>
+                  </FormControl>
+                  <div>
+                    <Button className={classes.button} disabled>
+                      Back
+                    </Button>
+                    <Button
+                      className={classes.button}
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => setActiveStep(2)}
+                    >
+                      Next
+                    </Button>
+                  </div>
+                </StepContent>
+              </Step>
+              <Step>
+                <StepLabel>Upload</StepLabel>
+                <StepContent>
+                  <Typography>
+                    The following information will be saved, are you sure you
+                    want to continue?
+                  </Typography>
+                  <ul>
+                    {sharedItems
+                      .filter(item => keys.includes(item.key))
+                      .map(item => (
+                        <li key={item.name}>{item.name}</li>
+                      ))}
+                  </ul>
+                  <div>
+                    <Button
+                      className={classes.button}
+                      onClick={() => setActiveStep(1)}
+                    >
+                      Back
+                    </Button>
+                    <Button
+                      className={classes.button}
+                      variant="contained"
+                      color="secondary"
+                      onClick={submit}
+                      endIcon={<SendIcon />}
+                      disabled={loading}
+                    >
+                      Upload
+                    </Button>
+                  </div>
+                </StepContent>
+              </Step>
+            </Stepper>
+            {activeStep === 3 && (
+              <Paper square elevation={0} className={classes.resetContainer}>
+                <Markdown>{dataContributionThanksMD}</Markdown>
+              </Paper>
+            )}
+          </>
         )}
       </Paper>
     </>
